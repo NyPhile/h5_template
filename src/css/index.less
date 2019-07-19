@@ -1,0 +1,25 @@
+.common-container {
+  background: url(../../static/share-icon.png);
+}
+.banner {
+  display: block;
+}
+ul li {
+  height: 50px;padding: 0 50px;
+  line-height: 50px;
+  color: #fff;
+}
+// 循环
+@bgc: #333;
+.generate-bg-color(@n, @i: 1) when (@i < @n) {
+  ul li:nth-child(@{i}){
+    background-color: @bgc * @i
+  }
+  .generate-bg-color(@n, (@i + 1));
+}
+.generate-bg-color(5);
+
+//autoprefixer
+::placeholder{
+    width:10px;
+}
