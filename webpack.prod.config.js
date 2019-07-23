@@ -1,15 +1,17 @@
+const pkg = require('./package.json')
+const baseWebpackConfig = require('./webpack.base.config.js')
+
 const path = require('path')
 const resolve = path.resolve
-const pkg = require('./package.json')
+
 const webpack = require('webpack')
 const merge = require('webpack-merge')
-const baseWebpackConfig = require('./webpack.base.config.js')
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
-const HtmlWebPackPlugin = require("html-webpack-plugin")
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const HtmlWebPackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin")
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 let publicPath = `https://static.ws.126.net/163/f2e/${pkg.channel}/${pkg.name}/`
@@ -19,7 +21,7 @@ module.exports = merge(baseWebpackConfig, {
   output: {
     path: resolve(__dirname, 'dist'),
     filename: 'static/js/[name].[contenthash:8].js',
-    publicPath: publicPath
+    publicPath
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -35,6 +37,7 @@ module.exports = merge(baseWebpackConfig, {
     new webpack.DefinePlugin({
         'process.env.BASE_URL': JSON.stringify(publicPath),
         'process.env.ANT_PROJECT_ID': JSON.stringify(pkg.projectId)
+        'process.env.PROJECT_NAME': JSON.stringify(pkg.name)
     }),
     new CopyWebpackPlugin([
       {
@@ -46,17 +49,15 @@ module.exports = merge(baseWebpackConfig, {
   ],
   optimization: {
     minimizer:[
-      // 自定义js优化配置，将会覆盖默认配置
       new UglifyJsPlugin({
         exclude: /\.min\.js$/,
         cache: true,
-        parallel: true, // 开启并行压缩，充分利用cpu
+        parallel: true,
         sourceMap: false,
-        extractComments: false, // 移除注释
+        extractComments: false,
         uglifyOptions: {
           compress: {
             unused: true,
-            // warnings: false,
             drop_debugger: true
           },
           output: {
@@ -64,15 +65,14 @@ module.exports = merge(baseWebpackConfig, {
           }
         }
       }),
-      // 用于优化css文件
       new OptimizeCssAssetsPlugin({
         assetNameRegExp: /\.css$/g,
         cssProcessorOptions: {
           safe: true,
-          autoprefixer: { disable: true }, // 这里是个大坑，稍后会提到
+          autoprefixer: { disable: true },
           mergeLonghand: false,
           discardComments: {
-            removeAll: true // 移除注释
+            removeAll: true
           }
         },
         canPrint: true

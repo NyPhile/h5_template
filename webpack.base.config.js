@@ -1,6 +1,7 @@
 const path = require('path')
 const resolve = path.resolve
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const dev = process.env.NODE_ENV !== 'production'
 
@@ -29,10 +30,10 @@ module.exports = {
         enforce: 'pre',
         test: /\.js$/,
         exclude: /node_modules/,
-        include: [path.resolve(__dirname, 'src')], // 指定检查的目录
+        include: [path.resolve(__dirname, 'src')],
         loader: 'eslint-loader',
-        options: { // 这里的配置项参数将会被传递到 eslint 的 CLIEngine
-          formatter: require('eslint-friendly-formatter') // 指定错误报告的格式规范
+        options: {
+          formatter: require('eslint-friendly-formatter')
         }
       },
       {
@@ -45,7 +46,7 @@ module.exports = {
       {
         test: /\.html$/,
         use: [{
-          loader: "html-loader",
+          loader: 'html-loader',
           options: {
             minimize: false
           }

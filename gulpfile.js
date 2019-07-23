@@ -85,7 +85,7 @@ exports['test'] = async function () {
 
 exports['publish'] = async function () {
   await uploadStatic()
-  await uploadHtml('html')
+  await uploadHtml('page')
 }
 
 exports['clear'] = function () {

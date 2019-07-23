@@ -1,3 +1,4 @@
+// 统计
 function trackEvent (event, info) {
   if (!window['NTESAntAnalysis']) {
     window.addEventListener('NTMReady', () => {
