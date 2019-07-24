@@ -36,7 +36,7 @@ module.exports = merge(baseWebpackConfig, {
     new webpack.NamedModulesPlugin(),
     new webpack.DefinePlugin({
         'process.env.BASE_URL': JSON.stringify(publicPath),
-        'process.env.ANT_PROJECT_ID': JSON.stringify(pkg.projectId)
+        'process.env.ANT_PROJECT_ID': JSON.stringify(pkg.projectId),
         'process.env.PROJECT_NAME': JSON.stringify(pkg.name)
     }),
     new CopyWebpackPlugin([
