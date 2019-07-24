@@ -26,4 +26,4 @@ gulp publish
 ```
 
 ### more
-See [Configuration Reference](https://cli.vuejs.org/config/).
+See [Configuration Reference](https://g.hz.netease.com/f2e/doc/doc/blob/master/RULE.md).
