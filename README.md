@@ -26,4 +26,4 @@ gulp publish
 ```
 
 ### more
-See [Configuration Reference](https://g.hz.netease.com/f2e/doc/doc/blob/master/RULE.md).
+See [规则](https://g.hz.netease.com/f2e/doc/doc/blob/master/RULE.md)、[文档](https://g.hz.netease.com/f2e/component/h5-template/blob/master/README.md).
