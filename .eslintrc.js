@@ -10,7 +10,7 @@ module.exports = {
     node: true
   },
   rules: {
-    linebreak-style: [0 , 'error', 'windows'],
+    "linebreak-style": [0 , 'error', 'windows'],
     indent: [1, 2, {SwitchCase: 1}]
   }
 }
