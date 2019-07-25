@@ -48,7 +48,8 @@ module.exports = {
         use: [{
           loader: 'html-loader',
           options: {
-            minimize: false
+            minimize: false,
+            attrs: [':src']
           }
         }]
       },
@@ -64,7 +65,7 @@ module.exports = {
         }]
       },
       {
-        test: /\.(mp3)(\?.*)?$/,
+        test: /\.(mp3|mp4)(\?.*)?$/,
         loader: 'url-loader',
         options: {
           name:'static/[name].[ext]',
