@@ -68,7 +68,7 @@ module.exports = {
             loader: 'tinify-loader',
             options: {
               apikey: 'iA4WgA6dpM0nbSKsByJDA0MuLyodD2_j',
-              cache: path.resolve(__dirname, 'node_modules/.cache/tinify-loader')
+              cache: path.resolve(__dirname, 'node_modules/tinify-loader')
             }
           }
         ]
