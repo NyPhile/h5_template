@@ -54,7 +54,27 @@ module.exports = {
         }]
       },
       {
-        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        test: /\.(png|jpe?g)(\?.*)?$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              name: 'static/images/[name].[hash:7].[ext]',
+              limit: 1024,
+              fallback: 'file-loader'
+            }
+          },
+          {
+            loader: 'tinify-loader',
+            options: {
+              apikey: 'iA4WgA6dpM0nbSKsByJDA0MuLyodD2_j',
+              cache: path.resolve(__dirname, 'node_modules/.cache/tinify-loader')
+            }
+          }
+        ]
+      },
+      {
+        test: /\.(gif|svg)(\?.*)?$/,
         use: [{
           loader: 'url-loader',
           options: {
