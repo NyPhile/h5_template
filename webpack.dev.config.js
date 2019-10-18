@@ -27,8 +27,8 @@ module.exports = merge(baseWebpackConfig, {
       chunks: false,
       chunkModules: false
     },
-    // noInfo: true,
-    // hotOnly: true,
+    noInfo: true,
+    hotOnly: true,
     proxy: {
       // 代理
       // '/api': {
