@@ -36,6 +36,7 @@
     "postcss-autosize": "^1.0.1",
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.7.0",
+    "script-ext-html-webpack-plugin": "^2.1.4",
     "style-loader": "^0.23.1",
     "tinify-loader": "^0.2.4",
     "uglifyjs-webpack-plugin": "^2.1.3",

@@ -12,6 +12,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 let publicPath = `https://static.ws.126.net/163/f2e/${pkg.channel}/${pkg.name}/`
@@ -32,6 +33,10 @@ module.exports = merge(baseWebpackConfig, {
     new HtmlWebPackPlugin({
         template: "./src/index.html",
         filename: "./index.html"
+    }),
+    new ScriptExtHtmlWebpackPlugin({
+      inline: /manifest\..*\.js$/,
+      async: /main\..*\.js$/,
     }),
     new webpack.NamedModulesPlugin(),
     new webpack.DefinePlugin({
