@@ -16,15 +16,15 @@ module.exports = {
       {
         test: /\.(le|c)ss$/,
         use: [
-        dev ? 'style-loader' : {
-          loader: MiniCssExtractPlugin.loader,
-          options: {
-            publicPath: '../../'
-          }
-        },
-        'css-loader',
-        'postcss-loader',
-        'less-loader',
+          dev ? 'style-loader' : {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: '../../'
+            }
+          },
+          'css-loader',
+          'postcss-loader',
+          'less-loader',
         ]
       },
       {
