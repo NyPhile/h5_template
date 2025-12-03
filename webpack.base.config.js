@@ -2,6 +2,7 @@ const path = require('path')
 const resolve = path.resolve
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const ESLintPlugin = require('eslint-webpack-plugin')
 
 const dev = process.env.NODE_ENV !== 'production'
 
@@ -27,16 +28,6 @@ module.exports = {
         ]
       },
       {
-        enforce: 'pre',
-        test: /\.js$/,
-        exclude: /node_modules/,
-        include: [path.resolve(__dirname, 'src')],
-        loader: 'eslint-loader',
-        options: {
-          formatter: require('eslint-friendly-formatter')
-        }
-      },
-      {
         test: /\.js$/,
         exclude: /node_modules|\.min\.js|bower_components/,
         use: {
@@ -49,55 +40,63 @@ module.exports = {
           loader: 'html-loader',
           options: {
             minimize: false,
-            attrs: [':src']
+            sources: {
+              list: [
+                {
+                  tag: 'img',
+                  attribute: 'src',
+                  type: 'src',
+                },
+              ],
+            },
           }
         }]
       },
       {
-        test: /\.(png|jpe?g)(\?.*)?$/,
-        use: [
+        test: /\.(png|jpe?g)(\?.*)?$/,
+        type: 'asset',
+        parser: {
+          dataUrlCondition: {
+            maxSize: 1024 // 1kb
+          }
+        },
+        generator: {
+          filename: 'static/images/[name].[hash:7][ext]'
+        },
+        use: [
           {
-            loader: 'url-loader',
-            options: {
-              name: 'static/images/[name].[hash:7].[ext]',
-              limit: 1024,
-              fallback: 'file-loader'
-            }
-          },
-          {
-            loader: 'tinify-loader',
-            options: {
-              apikey: 'iA4WgA6dpM0nbSKsByJDA0MuLyodD2_j',
-              cache: path.resolve(__dirname, 'node_modules/tinify-loader')
+            loader: 'tinify-loader',
+            options: {
+              apikey: 'iA4WgA6dpM0nbSKsByJDA0MuLyodD2_j',
+              cache: path.resolve(__dirname, 'node_modules/tinify-loader')
             }
           }
         ]
       },
       {
-        test: /\.(gif|svg)(\?.*)?$/,
-        use: [{
-          loader: 'url-loader',
-          options: {
-            name: 'static/images/[name].[hash:7].[ext]',
-            limit: 1024,
-            fallback: 'file-loader'
+        test: /\.(gif|svg)(\?.*)?$/,
+        type: 'asset',
+        parser: {
+          dataUrlCondition: {
+            maxSize: 1024 // 1kb
           }
-        }]
+        },
+        generator: {
+          filename: 'static/images/[name].[hash:7][ext]'
+        }
       },
       {
         test: /\.(mp3|mp4)(\?.*)?$/,
-        loader: 'url-loader',
-        options: {
-          name:'static/[name].[ext]',
-          limit:10
+        type: 'asset/resource',
+        generator: {
+          filename: 'static/[name][ext]'
         }
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-        loader: 'url-loader',
-        options: {
-          limit: 10000,
-          name: './static/fonts/[name].[ext]'
+        type: 'asset/resource',
+        generator: {
+          filename: 'static/fonts/[name][ext]'
         }
       }
     ]
@@ -114,5 +113,12 @@ module.exports = {
       'js-bridge': '@mf2e/js-bridge',
       'newsapp-share': '@newsapp-activity/newsapp-share'
     }
-  }
+  },
+  plugins: [
+    new ESLintPlugin({
+      extensions: ['js'],
+      exclude: 'node_modules',
+      formatter: require('eslint-friendly-formatter')
+    })
+  ]
 }
